@@ -10,7 +10,7 @@ export async function GET(context) {
     site: context.site,
     items: posts.map((post) => ({
       ...post.data,
-      link: new URL(`${BASE_PATH}blog/${post.id}/`, context.site).href,
+      link: new URL(`${BASE_PATH}articles/${post.id}/`, context.site).href,
     })),
   });
 }

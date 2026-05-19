@@ -7,7 +7,7 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   output: "static",
   site: "https://jiefeng7464.github.io/",
-  base: "/token-template",
+  base: "/blog",
   integrations: [mdx(), sitemap(), tailwind()],
   markdown: {
     shikiConfig: {

@@ -16,8 +16,8 @@ export const NAV_LINKS: Array<{ title: string; href?: string }> = [
     href: "#projects",
   },
   {
-    title: "Blog",
-    href: "blog",
+    title: "Articles",
+    href: "articles",
   },
   {
     title: "Github",
@@ -26,4 +26,4 @@ export const NAV_LINKS: Array<{ title: string; href?: string }> = [
 ];
 
 // Must match base in astro.config.mjs
-export const BASE_PATH = "/token-template/";
+export const BASE_PATH = "/blog/";
