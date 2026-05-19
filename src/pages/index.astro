@@ -11,12 +11,9 @@ const posts = (await getCollection("blog")).sort(
 );
 ---
 
-<Layout title="Token - Astro + Tailwind Portfolio Template">
+<Layout title="满 · 个人作品集">
   <Hero />
-  <Section
-    title="My Posts"
-    className={"bg-gradient-to-b from-black/70 from-[5%] to-black via-black"}
-  >
+  <Section id="projects" title="项目" className={"bg-gradient-to-b from-black/70 from-[5%] to-black via-black"}>
     <div class="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
       {
         posts.map((post) => (

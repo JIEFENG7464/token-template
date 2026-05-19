@@ -3,13 +3,10 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
-import edgeoneAdapter from "@edgeone/astro";
-
 // https://astro.build/config
 export default defineConfig({
   output: "static",
-  adapter: edgeoneAdapter(),
-  site: "https://token-template.edgeone.app/",
+  site: "https://jiefeng7464.github.io/token-template/",
   integrations: [mdx(), sitemap(), tailwind()],
   markdown: {
     shikiConfig: {
