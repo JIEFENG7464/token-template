@@ -1,11 +1,11 @@
 ---
 title: "心情日历 · MoodCalendar"
-description: "一款用 Kotlin + Jetpack Compose 开发的 Android 情绪记录应用"
+description: "一款用 Kotlin + Jetpack Compose 开发的 Android 情绪记录应用（AI 辅助编码）"
 pubDate: "2026-05-10"
 heroImage: ""
 ---
 
-**心情日历**是一款 Android 端情绪记录 App，使用 Kotlin + Jetpack Compose 开发。
+**心情日历**是一款 Android 端情绪记录 App，使用 Kotlin + Jetpack Compose 开发（AI 辅助编码）。
 
 ### 功能
 - 每日心情记录与可视化
