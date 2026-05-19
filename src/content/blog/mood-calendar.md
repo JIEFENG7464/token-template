@@ -19,5 +19,8 @@ heroImage: ""
 - Gradle 构建
 - APK 编译部署
 
+### GitHub
+[github.com/JIEFENG7464/MoodCalendar](https://github.com/JIEFENG7464/MoodCalendar)
+
 ### 状态
 已完成基础功能，可编译 APK 安装使用。
