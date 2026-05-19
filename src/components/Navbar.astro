@@ -1,12 +1,13 @@
 ---
-import { SITE_TITLE, NAV_LINKS as links } from "@/consts";
+import { SITE_TITLE, NAV_LINKS as links, BASE_PATH } from "@/consts";
+const baseUrl = BASE_PATH;
 ---
 
 <nav class="w-full !z-[9999] py-5 px-4 bg-black/90 backdrop-blur-sm">
   <div
     class="w-full grid gap-4 md:px-5 place-items-center grid-cols-1 md:flex md:justify-between md:px-4"
   >
-    <a href="/">
+    <a href={baseUrl}>
       <div
         id="logo"
         class="pt-2 pb-1 !grid !place-items-center select-none leading-none hover:bg-black bg-white scale-110 hover:text-white text-black px-4 transition-all ease-in-out"
@@ -20,19 +21,17 @@ import { SITE_TITLE, NAV_LINKS as links } from "@/consts";
         links.map((link) => {
           const href =
             link.href ?? link.title.toLowerCase().replaceAll(" ", "-");
-          const pathname = Astro.url.pathname.replace(
-            import.meta.env.BASE_URL,
-            "",
-          );
-          const subpath = pathname.match(/[^\/]+/g);
+          const isExternal = href.startsWith("//");
+          const fullHref = isExternal ? href : baseUrl + href;
+          const currentPath = Astro.url.pathname.replace(baseUrl, "");
           const isActive =
-            href === pathname || href === "/" + (subpath?.[0] || "");
+            href === currentPath || href === currentPath.replace(/\/$/, "");
           return (
             <>
               <a
                 class:list={[{ "bg-white text-black": isActive }]}
                 class="hover:bg-white hover:text-black transition-all ease-in-out px-2 max-w-fit"
-                href={`/${href}`}
+                href={fullHref}
               >
                 <div>{link.title}</div>
               </a>

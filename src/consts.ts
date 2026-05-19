@@ -13,14 +13,17 @@ export const QUOTE = "瞎折腾の业余选手";
 export const NAV_LINKS: Array<{ title: string; href?: string }> = [
   {
     title: "项目",
-    href: "/#projects",
+    href: "#projects",
   },
   {
     title: "Blog",
-    href: "/blog",
+    href: "blog",
   },
   {
     title: "Github",
     href: "//github.com/" + GITHUB_USERNAME,
   },
 ];
+
+// Must match base in astro.config.mjs
+export const BASE_PATH = "/token-template/";

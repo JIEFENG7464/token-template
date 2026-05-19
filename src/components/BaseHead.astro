@@ -16,7 +16,11 @@ const {
   image = "/image.jpg",
 } = Astro.props;
 import HeroImage from "@/hero.png";
-import { ABOUT_ME, SITE_TITLE } from "@/consts";
+import { ABOUT_ME, SITE_TITLE, BASE_PATH } from "@/consts";
+
+const sitemapUrl = BASE_PATH + "sitemap-index.xml";
+const fontUrl = BASE_PATH + "fonts/VCRosdNEUE.ttf";
+const ogImageUrl = BASE_PATH + "image.jpg";
 ---
 
 <!-- Global Metadata -->
@@ -24,16 +28,10 @@ import { ABOUT_ME, SITE_TITLE } from "@/consts";
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <link rel="icon" type="image/svg+xml" href="https://emoji-route.deno.dev/svg/👩‍💻" />
 <meta name="generator" content={Astro.generator} />
-<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="sitemap" href={sitemapUrl} />
 
 <!-- Font preloads -->
-<link
-  rel="preload"
-  href="/fonts/VCRosdNEUE.ttf"
-  as="font"
-  type="font/ttf"
-  crossorigin
-/>
+<link rel="preload" href={fontUrl} as="font" type="font/ttf" crossorigin />
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
@@ -48,14 +46,14 @@ import { ABOUT_ME, SITE_TITLE } from "@/consts";
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={new URL(ogImageUrl, Astro.url)} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:image" content={new URL(ogImageUrl, Astro.url)} />
 
 <!-- View Transitions  -->
 <ClientRouter />
