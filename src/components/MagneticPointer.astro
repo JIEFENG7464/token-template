@@ -63,7 +63,14 @@
         container.classList.remove("is-hovering");
         container.style.setProperty("--w", "2rem");
         container.style.setProperty("--h", "2rem");
+        // 关过渡 → 瞬移 → 开过渡
+        container.style.transition = "none";
         container.style.transform = `translate(${lastX}px, ${lastY}px)`;
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            container.style.transition = "all 0.15s ease-out";
+          });
+        });
       }
       bindTargets();
     });
