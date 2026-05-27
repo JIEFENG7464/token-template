@@ -5,10 +5,14 @@
     let container = document.querySelector(".magnetic-pointer");
     if (!container) return;
 
+    // 页面刚加载时隐藏光标，等鼠标动了再显示
+    container.style.opacity = "0";
+
     let currentTarget = null;
 
     const move = (e) => {
       if (!container) return;
+      container.style.opacity = "1";
       let x = e.clientX;
       let y = e.clientY;
       if (currentTarget) {
@@ -48,7 +52,10 @@
     };
 
     // Astro View Transitions 导航后重新绑定
-    document.addEventListener("astro:page-load", bindTargets);
+    document.addEventListener("astro:page-load", () => {
+      if (container) container.style.opacity = "0";
+      bindTargets();
+    });
     init();
   })();
 </script>
