@@ -7,7 +7,7 @@ const baseUrl = BASE_PATH;
   <div
     class="w-full grid gap-4 md:px-5 place-items-center grid-cols-1 md:flex md:justify-between md:px-4"
   >
-    <a href={baseUrl}>
+    <a href={baseUrl} data-magnetic>
       <div
         id="logo"
         class="pt-2 pb-1 !grid !place-items-center select-none leading-none hover:bg-black bg-white scale-110 hover:text-white text-black px-4 transition-all ease-in-out"
@@ -32,6 +32,7 @@ const baseUrl = BASE_PATH;
                 class:list={[{ "bg-white text-black": isActive }]}
                 class="hover:bg-white hover:text-black transition-all ease-in-out px-2 max-w-fit"
                 href={fullHref}
+                data-magnetic
               >
                 <div>{link.title}</div>
               </a>

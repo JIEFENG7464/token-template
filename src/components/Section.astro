@@ -14,7 +14,7 @@ const sectionId = id ?? title.toLowerCase().replaceAll(" ", "");
   class={`${full_screen ? "h-screen" : ""} px-4 py-10 w-screen !overflow-x-hidden ${className}`}
 >
   <div class="w-full grid place-items-center">
-    <h2 class="text-4xl md:text-6xl text-center">{`<${title} />`}</h2>
+    <h2 class="text-4xl md:text-6xl text-center" data-magnetic>{`<${title} />`}</h2>
   </div>
   <div class="w-full mt-10 px-4">
     <slot />

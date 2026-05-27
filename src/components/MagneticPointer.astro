@@ -1,0 +1,150 @@
+<script>
+  // Magnetic Pointer — adapted from JIEJOE-WEB-Tutorial/018-magnetic-pointer (MIT)
+  // 移除本组件即可完全删除此效果
+  (() => {
+    let container = document.querySelector(".magnetic-pointer");
+    if (!container) return;
+
+    let currentTarget = null;
+
+    const move = (e) => {
+      if (!container) return;
+      let x = e.clientX;
+      let y = e.clientY;
+      if (currentTarget) {
+        const rect = currentTarget.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        x = cx + (x - cx) * 0.1;
+        y = cy + (y - cy) * 0.1;
+      }
+      container.style.transform = `translate(${x}px, ${y}px)`;
+    };
+
+    const bindTargets = () => {
+      container = document.querySelector(".magnetic-pointer");
+      if (!container) return;
+      document.querySelectorAll("[data-magnetic]").forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          currentTarget = el;
+          const rect = el.getBoundingClientRect();
+          container.style.setProperty("--w", rect.width + window.innerWidth / 50 + "px");
+          container.style.setProperty("--h", rect.height + window.innerWidth / 50 + "px");
+          container.classList.add("is-hovering");
+        });
+        el.addEventListener("mouseleave", () => {
+          currentTarget = null;
+          container.style.setProperty("--w", "2rem");
+          container.style.setProperty("--h", "2rem");
+          container.classList.remove("is-hovering");
+        });
+      });
+    };
+
+    const init = () => {
+      window.addEventListener("mousemove", move);
+      bindTargets();
+    };
+
+    // Astro View Transitions 导航后重新绑定
+    document.addEventListener("astro:page-load", bindTargets);
+    init();
+  })();
+</script>
+
+<style>
+  .magnetic-pointer {
+    --w: 3rem;
+    --h: 3rem;
+    position: fixed;
+    top: calc(var(--h) / -2);
+    left: calc(var(--w) / -2);
+    width: var(--w);
+    height: var(--h);
+    transition: all 0.15s ease-out;
+    pointer-events: none;
+    z-index: 99999;
+  }
+  /* 每个角是一簇 3×3 的粗糙像素 */
+  .magnetic-pointer div {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.85);
+  }
+  .magnetic-pointer div:nth-child(1) { top: 0; left: 0;
+    box-shadow:
+      8px 0 0 0 rgba(255,255,255,0.6),
+      4px 4px 0 0 rgba(255,255,255,0.9),
+      0 8px 0 0 rgba(255,255,255,0.75),
+      8px 8px 0 0 rgba(255,255,255,0.5); }
+  .magnetic-pointer div:nth-child(2) { top: 0; right: 0;
+    box-shadow:
+      -8px 0 0 0 rgba(255,255,255,0.6),
+      -4px 4px 0 0 rgba(255,255,255,0.9),
+      -0px 8px 0 0 rgba(255,255,255,0.75),
+      -8px 8px 0 0 rgba(255,255,255,0.5); }
+  .magnetic-pointer div:nth-child(3) { bottom: 0; left: 0;
+    box-shadow:
+      8px 0 0 0 rgba(255,255,255,0.6),
+      4px -4px 0 0 rgba(255,255,255,0.9),
+      0 -8px 0 0 rgba(255,255,255,0.75),
+      8px -8px 0 0 rgba(255,255,255,0.5); }
+  .magnetic-pointer div:nth-child(4) { bottom: 0; right: 0;
+    box-shadow:
+      -8px 0 0 0 rgba(255,255,255,0.6),
+      -4px -4px 0 0 rgba(255,255,255,0.9),
+      -0px -8px 0 0 rgba(255,255,255,0.75),
+      -8px -8px 0 0 rgba(255,255,255,0.5); }
+  /* 中心十字准星 */
+  .magnetic-pointer::before {
+    content: "";
+    position: absolute;
+    top: 50%; left: 47%;
+    width: 3px; height: 3px;
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow:
+      5px 0 0 0 rgba(255,255,255,0.25),
+      0 5px 0 0 rgba(255,255,255,0.25),
+      -5px 0 0 0 rgba(255,255,255,0.25),
+      0 -5px 0 0 rgba(255,255,255,0.25);
+  }
+  /* hover 时更亮更粗 */
+  .magnetic-pointer.is-hovering div {
+    background: rgba(255, 255, 255, 1);
+  }
+  .magnetic-pointer.is-hovering div:nth-child(1) {
+    box-shadow:
+      8px 0 0 0 rgba(255,255,255,0.85),
+      4px 4px 0 0 rgba(255,255,255,1),
+      0 8px 0 0 rgba(255,255,255,0.9),
+      8px 8px 0 0 rgba(255,255,255,0.75); }
+  .magnetic-pointer.is-hovering div:nth-child(2) {
+    box-shadow:
+      -8px 0 0 0 rgba(255,255,255,0.85),
+      -4px 4px 0 0 rgba(255,255,255,1),
+      -0px 8px 0 0 rgba(255,255,255,0.9),
+      -8px 8px 0 0 rgba(255,255,255,0.75); }
+  .magnetic-pointer.is-hovering div:nth-child(3) {
+    box-shadow:
+      8px 0 0 0 rgba(255,255,255,0.85),
+      4px -4px 0 0 rgba(255,255,255,1),
+      0 -8px 0 0 rgba(255,255,255,0.9),
+      8px -8px 0 0 rgba(255,255,255,0.75); }
+  .magnetic-pointer.is-hovering div:nth-child(4) {
+    box-shadow:
+      -8px 0 0 0 rgba(255,255,255,0.85),
+      -4px -4px 0 0 rgba(255,255,255,1),
+      -0px -8px 0 0 rgba(255,255,255,0.9),
+      -8px -8px 0 0 rgba(255,255,255,0.75); }
+  .magnetic-pointer.is-hovering::before {
+    display: none;
+  }
+</style>
+
+<div class="magnetic-pointer" aria-hidden="true">
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+</div>
