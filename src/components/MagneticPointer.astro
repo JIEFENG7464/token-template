@@ -50,9 +50,15 @@
       bindTargets();
     };
 
-    // Astro View Transitions 导航后重新绑定
+    // Astro View Transitions 导航后：清掉吸附状态，恢复鼠标位置
     document.addEventListener("astro:page-load", () => {
-      if (container) container.style.transform = `translate(${lastX}px, ${lastY}px)`;
+      currentTarget = null;
+      if (container) {
+        container.classList.remove("is-hovering");
+        container.style.setProperty("--w", "2rem");
+        container.style.setProperty("--h", "2rem");
+        container.style.transform = `translate(${lastX}px, ${lastY}px)`;
+      }
       bindTargets();
     });
     init();
