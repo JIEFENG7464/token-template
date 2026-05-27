@@ -2,6 +2,11 @@
   // Magnetic Pointer — adapted from JIEJOE-WEB-Tutorial/018-magnetic-pointer (MIT)
   // 移除本组件即可完全删除此效果
   (() => {
+    // 注入全局 cursor: none 到 head，View Transition 也不丢失
+    const styleEl = document.createElement("style");
+    styleEl.textContent = "*,*::before,*::after{cursor:none!important}";
+    document.head.appendChild(styleEl);
+
     let container = document.querySelector(".magnetic-pointer");
     if (!container) return;
 
@@ -48,17 +53,10 @@
     };
 
     // Astro View Transitions 导航后重新绑定
-    document.addEventListener("astro:page-load", () => {
-      document.body.style.cursor = "none";
-      bindTargets();
-    });
+    document.addEventListener("astro:page-load", bindTargets);
     init();
   })();
 </script>
-
-<style is:global>
-  *, *::before, *::after { cursor: none !important; }
-</style>
 <style>
   .magnetic-pointer {
     --w: 3rem;
