@@ -42,12 +42,16 @@
     };
 
     const init = () => {
+      document.body.style.cursor = "none";
       window.addEventListener("mousemove", move);
       bindTargets();
     };
 
     // Astro View Transitions 导航后重新绑定
-    document.addEventListener("astro:page-load", bindTargets);
+    document.addEventListener("astro:page-load", () => {
+      document.body.style.cursor = "none";
+      bindTargets();
+    });
     init();
   })();
 </script>
