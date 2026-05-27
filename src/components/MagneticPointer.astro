@@ -2,11 +2,6 @@
   // Magnetic Pointer — adapted from JIEJOE-WEB-Tutorial/018-magnetic-pointer (MIT)
   // 移除本组件即可完全删除此效果
   (() => {
-    // 注入全局 cursor: none 到 head，View Transition 也不丢失
-    const styleEl = document.createElement("style");
-    styleEl.textContent = "*,*::before,*::after{cursor:none!important}";
-    document.head.appendChild(styleEl);
-
     let container = document.querySelector(".magnetic-pointer");
     if (!container) return;
 

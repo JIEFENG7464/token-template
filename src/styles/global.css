@@ -7,6 +7,9 @@
 body {
   font-family: "VCR", monospace !important;
 }
+*, *::before, *::after {
+  cursor: none !important;
+}
 
 pre,
 code {
