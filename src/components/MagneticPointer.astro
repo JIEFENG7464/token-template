@@ -5,14 +5,13 @@
     let container = document.querySelector(".magnetic-pointer");
     if (!container) return;
 
-    // 页面刚加载时隐藏光标，等鼠标动了再显示
-    container.style.opacity = "0";
+    // 页面刚加载时光标移出屏幕，等鼠标动了再归位
+    container.style.transform = "translate(-100px, -100px)";
 
     let currentTarget = null;
 
     const move = (e) => {
       if (!container) return;
-      container.style.opacity = "1";
       let x = e.clientX;
       let y = e.clientY;
       if (currentTarget) {
@@ -53,7 +52,7 @@
 
     // Astro View Transitions 导航后重新绑定
     document.addEventListener("astro:page-load", () => {
-      if (container) container.style.opacity = "0";
+      if (container) container.style.transform = "translate(-100px, -100px)";
       bindTargets();
     });
     init();
