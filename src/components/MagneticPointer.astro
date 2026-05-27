@@ -24,24 +24,30 @@
       container.style.transform = `translate(${x}px, ${y}px)`;
     };
 
+    const bindTarget = (el) => {
+      if (el.dataset.magneticBound) return;
+      el.dataset.magneticBound = "1";
+      el.addEventListener("mouseenter", () => {
+        currentTarget = el;
+        const rect = el.getBoundingClientRect();
+        container.style.setProperty("--w", rect.width + window.innerWidth / 50 + "px");
+        container.style.setProperty("--h", rect.height + window.innerWidth / 50 + "px");
+        container.classList.add("is-hovering");
+      });
+      el.addEventListener("mouseleave", () => {
+        currentTarget = null;
+        container.style.setProperty("--w", "2rem");
+        container.style.setProperty("--h", "2rem");
+        container.classList.remove("is-hovering");
+      });
+    };
+
     const bindTargets = () => {
       container = document.querySelector(".magnetic-pointer");
       if (!container) return;
-      document.querySelectorAll("[data-magnetic]").forEach((el) => {
-        el.addEventListener("mouseenter", () => {
-          currentTarget = el;
-          const rect = el.getBoundingClientRect();
-          container.style.setProperty("--w", rect.width + window.innerWidth / 50 + "px");
-          container.style.setProperty("--h", rect.height + window.innerWidth / 50 + "px");
-          container.classList.add("is-hovering");
-        });
-        el.addEventListener("mouseleave", () => {
-          currentTarget = null;
-          container.style.setProperty("--w", "2rem");
-          container.style.setProperty("--h", "2rem");
-          container.classList.remove("is-hovering");
-        });
-      });
+      document.querySelectorAll("[data-magnetic]").forEach(bindTarget);
+      // 自动吸附页面内所有链接
+      document.querySelectorAll("a:not([data-magnetic])").forEach(bindTarget);
     };
 
     const init = () => {
