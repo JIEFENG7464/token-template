@@ -26,6 +26,8 @@
 
     const bindTarget = (el) => {
       if (el.dataset.magneticBound) return;
+      // 跳过已在 data-magnetic 容器内的链接，避免嵌套冲突
+      if (el.closest("[data-magnetic]")) return;
       el.dataset.magneticBound = "1";
       el.addEventListener("mouseenter", () => {
         currentTarget = el;
