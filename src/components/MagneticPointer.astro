@@ -24,32 +24,26 @@
       container.style.transform = `translate(${x}px, ${y}px)`;
     };
 
-    const bindTarget = (el) => {
-      if (el.dataset.magneticBound) return;
-      // 跳过已在 data-magnetic 容器内的链接，避免嵌套冲突
-      if (el.closest("[data-magnetic]")) return;
-      el.dataset.magneticBound = "1";
-      el.addEventListener("mouseenter", () => {
-        currentTarget = el;
-        const rect = el.getBoundingClientRect();
-        container.style.setProperty("--w", rect.width + window.innerWidth / 50 + "px");
-        container.style.setProperty("--h", rect.height + window.innerWidth / 50 + "px");
-        container.classList.add("is-hovering");
-      });
-      el.addEventListener("mouseleave", () => {
-        currentTarget = null;
-        container.style.setProperty("--w", "2rem");
-        container.style.setProperty("--h", "2rem");
-        container.classList.remove("is-hovering");
-      });
-    };
-
     const bindTargets = () => {
       container = document.querySelector(".magnetic-pointer");
       if (!container) return;
-      document.querySelectorAll("[data-magnetic]").forEach(bindTarget);
-      // 自动吸附页面内所有链接
-      document.querySelectorAll("a:not([data-magnetic])").forEach(bindTarget);
+      document.querySelectorAll("[data-magnetic]").forEach((el) => {
+        if (el._magneticBound) return;
+        el._magneticBound = true;
+        el.addEventListener("mouseenter", () => {
+          currentTarget = el;
+          const rect = el.getBoundingClientRect();
+          container.style.setProperty("--w", rect.width + window.innerWidth / 50 + "px");
+          container.style.setProperty("--h", rect.height + window.innerWidth / 50 + "px");
+          container.classList.add("is-hovering");
+        });
+        el.addEventListener("mouseleave", () => {
+          currentTarget = null;
+          container.style.setProperty("--w", "2rem");
+          container.style.setProperty("--h", "2rem");
+          container.classList.remove("is-hovering");
+        });
+      });
     };
 
     const init = () => {
